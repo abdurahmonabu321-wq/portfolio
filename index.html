@@ -3,109 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abdurahmon Muhammadzokirov — Frontend Developer</title>
+<title>Muhammadzokirov Abdurahmon — Frontend Developer</title>
 <link rel="stylesheet" href="./style.css">
-
+<style>
+  /* Til tanlash tugmalari uchun CSS */
+  .lang-switcher {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+    margin-right: 1.5rem;
+  }
+  .lang-btn {
+    background: transparent;
+    border: 1px solid #ccc;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    color: inherit;
+  }
+  .lang-btn.active {
+    background: #0070f3;
+    color: #fff;
+    border-color: #0070f3;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+  }
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 </head>
 <body>
-    <script>
-        /* --- LOADER --- */
-        window.addEventListener('load', function() {
-          setTimeout(function() {
-            document.getElementById('loader').classList.add('hidden');
-          }, 1300);
-        });
-      
-        /* --- SCROLL REVEAL --- */
-        // Reveal classlarini elementlarga qo'shish
-        var revealTargets = [
-          { sel: '.about-text',       cls: 'reveal-left' },
-          { sel: '.skills-grid',      cls: 'reveal-right' },
-          { sel: '.project-card',     cls: 'reveal' },
-          { sel: '.service-card',     cls: 'reveal' },
-          { sel: '.testi-card',       cls: 'reveal' },
-          { sel: '.blog-card',        cls: 'reveal' },
-          { sel: '.timeline-item',    cls: 'reveal-left' },
-          { sel: '.faq-item',         cls: 'reveal' },
-          { sel: '.section-title',    cls: 'reveal' },
-          { sel: '.stat-box',         cls: 'reveal' },
-          { sel: '.contact-item',     cls: 'reveal-left' },
-          { sel: '.contact-form',     cls: 'reveal-right' },
-        ];
-      
-        revealTargets.forEach(function(t) {
-          document.querySelectorAll(t.sel).forEach(function(el, i) {
-            el.classList.add(t.cls);
-            if (i < 5) el.classList.add('delay-' + (i + 1));
-          });
-        });
-      
-        // Skill fill width ni CSS variable ga o'tkazish
-        document.querySelectorAll('.skill-fill').forEach(function(el) {
-          var w = el.style.width;
-          el.style.setProperty('--target-width', w);
-        });
-      
-        // IntersectionObserver
-        var observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-      
-              // Skill bar animatsiya
-              if (entry.target.classList.contains('skills-grid')) {
-                entry.target.querySelectorAll('.skill-fill').forEach(function(bar) {
-                  setTimeout(function() { bar.classList.add('animated'); }, 200);
-                });
-              }
-            }
-          });
-        }, { threshold: 0.15 });
-      
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) {
-          observer.observe(el);
-        });
-      
-        /* --- FAQ --- */
-        document.querySelectorAll('.faq-q').forEach(function(q) {
-          q.addEventListener('click', function() {
-            var item = this.closest('.faq-item');
-            var wasOpen = item.classList.contains('open');
-            document.querySelectorAll('.faq-item').forEach(function(i) {
-              i.classList.remove('open');
-            });
-            if (!wasOpen) item.classList.add('open');
-          });
-        });
-      </script>
-      </body>
-      </html>
 
-<!-- NAV -->
+  <div id="loader"></div>
+
 <nav>
-  <div class="nav-logo">Abdurahmon<span>.</span>Muhammadzokirov</div>
+  <div class="nav-logo">Muhammadzokirov<span>.</span>Abdurahmon</div>
+  
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="switchLanguage('uz')">UZ</button>
+    <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+  </div>
+
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#blog">Blog</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about" data-key="nav-about">About</a></li>
+    <li><a href="#services" data-key="nav-services">Services</a></li>
+    <li><a href="#projects" data-key="nav-projects">Projects</a></li>
+    <li><a href="#experience" data-key="nav-experience">Experience</a></li>
+    <li><a href="#testimonials" data-key="nav-reviews">Reviews</a></li>
+    <li><a href="#blog" data-key="nav-blog">Blog</a></li>
+    <li><a href="#faq" data-key="nav-faq">FAQ</a></li>
+    <li><a href="#contact" data-key="nav-contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-inner">
     <div>
-      <div class="hero-tag">Available for hire</div>
-      <h1>Frontend<br>Developer &amp;<br><span>UI Specialist</span></h1>
-      <p class="hero-sub">I build clean, fast, and accessible web experiences using modern technologies. Based in Tashkent, working globally.</p>
+      <div class="hero-tag" data-key="hero-tag">Available for hire</div>
+      <h1 data-key="hero-title">Frontend<br>Developer &amp;<br><span>UI Specialist</span></h1>
+      <p class="hero-sub" data-key="hero-sub">I build clean, fast, and accessible web experiences using modern technologies. Based in Tashkent, working globally.</p>
       <div class="hero-btns">
-        <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="#contact" class="btn-outline">Hire Me</a>
+        <a href="#projects" class="btn-primary" data-key="hero-btn-view">View Projects</a>
+        <a href="#contact" class="btn-outline" data-key="hero-btn-hire">Hire Me</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -119,25 +89,24 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="container">
     <div class="about-grid">
       <div class="about-text">
-        <p class="section-label">About me</p>
-        <h2 class="section-title">Who I Am</h2>
+        <p class="section-label" data-key="about-label">About me</p>
+        <h2 class="section-title" data-key="about-title">Who I Am</h2>
         <div class="section-divider"></div>
-        <p>I'm a passionate Frontend Developer with 4+ years of experience creating modern web applications. I specialize in building intuitive user interfaces that are both beautiful and functional.</p>
-        <p>My approach combines clean code architecture with thoughtful UX design — I believe great software should feel effortless to use.</p>
-        <p>When I'm not coding, I contribute to open-source projects and mentor junior developers in the local tech community.</p>
+        <p data-key="about-p1">I'm a passionate Frontend Developer with 4+ years of experience creating modern web applications. I specialize in building intuitive user interfaces that are both beautiful and functional.</p>
+        <p data-key="about-p2">My approach combines clean code architecture with thoughtful UX design — I believe great software should feel effortless to use.</p>
+        <p data-key="about-p3">When I'm not coding, I contribute to open-source projects and mentor junior developers in the local tech community.</p>
         <div class="stats-row">
-          <div class="stat-box"><div class="stat-num">4<span>+</span></div><div class="stat-label">Years Experience</div></div>
-          <div class="stat-box"><div class="stat-num">30<span>+</span></div><div class="stat-label">Projects Done</div></div>
-          <div class="stat-box"><div class="stat-num">15<span>+</span></div><div class="stat-label">Happy Clients</div></div>
+          <div class="stat-box"><div class="stat-num">4<span>+</span></div><div class="stat-label" data-key="stat-exp">Years Experience</div></div>
+          <div class="stat-box"><div class="stat-num">30<span>+</span></div><div class="stat-label" data-key="stat-projects">Projects Done</div></div>
+          <div class="stat-box"><div class="stat-num">15<span>+</span></div><div class="stat-label" data-key="stat-clients">Happy Clients</div></div>
         </div>
       </div>
       <div>
-        <p class="section-label" style="margin-bottom: 1.5rem;">Skills</p>
+        <p class="section-label" style="margin-bottom: 1.5rem;" data-key="skills-label">Skills</p>
         <div class="skills-grid">
           <div>
             <div class="skill-item"><div class="skill-top"><span>HTML & CSS</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
@@ -156,57 +125,45 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <p class="section-label">My Work</p>
-    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-label" data-key="projects-label">My Work</p>
+    <h2 class="section-title" data-key="projects-title">Featured Projects</h2>
     <div class="section-divider"></div>
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-thumb" style="background:#f0f4ff;">🧮</div>
         <div class="project-body">
           <div class="project-tags"><span class="tag">Html</span><span class="tag">Css</span><span class="tag">JavaScript</span></div>
-          <div class="project-title">Calculator</div>
-          <p class="project-desc">A clean and responsive calculator built with vanilla JavaScript. Supports basic arithmetic operations, keyboard input, and instant calculations with a modern UI.</p>
+          <div class="project-title" data-key="proj1-title">Calculator</div>
+          <p class="project-desc" data-key="proj1-desc">A clean and responsive calculator built with vanilla JavaScript. Supports basic arithmetic operations, keyboard input, and instant calculations with a modern UI.</p>
           <div class="project-links">
-            <a href="https://calculator-one-wheat-57.vercel.app/" class="project-link">Live Demo →</a>
+            <a href="https://calculator-one-wheat-57.vercel.app/" class="project-link" data-key="demo-link">Live Demo →</a>
             <a href="https://github.com/abdurahmonabu321-wq/calculator" class="project-link">GitHub →</a>
           </div>
         </div>
       </div>
       <div class="project-card">
-        <div class="project-card">
-            <div class="project-thumb" style="background:#e8f4fd;">🚗</div>
-            <div class="project-body">
-              <div class="project-tags">
-                <span class="tag">Next.js</span>
-                <span class="tag">Tailwind CSS</span>
-              </div>
-              <div class="project-title">Car Rental Website</div>
-              <p class="project-desc">A modern car rental platform built with Next.js and Tailwind CSS. Users can browse available vehicles, filter by type and price, and book their preferred car with a smooth, responsive experience across all devices.</p>
-              <div class="project-links">
-                <a href="https://car-rentall-xi.vercel.app/" class="project-link">Live Demo →</a>
-                <a href="https://github.com/abdurahmonabu321-wq/Car-Rental" class="project-link">GitHub →</a>
-              </div>
-            </div>
+        <div class="project-thumb" style="background:#e8f4fd;">🚗</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Next.js</span><span class="tag">Tailwind CSS</span></div>
+          <div class="project-title" data-key="proj2-title">Car Rental Website</div>
+          <p class="project-desc" data-key="proj2-desc">A modern car rental platform built with Next.js and Tailwind CSS. Users can browse available vehicles, filter by type and price, and book their preferred car with a smooth, responsive experience across all devices.</p>
+          <div class="project-links">
+            <a href="https://car-rentall-xi.vercel.app/" class="project-link" data-key="demo-link">Live Demo →</a>
+            <a href="https://github.com/abdurahmonabu321-wq/Car-Rental" class="project-link">GitHub →</a>
           </div>
+        </div>
       </div>
       <div class="project-card">
-        <div class="project-card">
-          <div class="project-thumb" style="background:#f0fff4;">💼</div>
-          <div class="project-body">
-            <div class="project-tags">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-            </div>
-            <div class="project-title">Full Job Portal</div>
-            <p class="project-desc">A full-featured job portal built with vanilla HTML, CSS, and JavaScript. Job seekers can search and filter listings by category, location, and salary range, while employers can post new vacancies through a simple submission form.</p>
-            <div class="project-links">
-              <a href="https://full-job-portal.vercel.app/" class="project-link">Live Demo →</a>
-              <a href="https://github.com/abdurahmonabu321-wq/Full-Job" class="project-link">GitHub →</a>
-            </div>
+        <div class="project-thumb" style="background:#f0fff4;">💼</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          <div class="project-title" data-key="proj3-title">Full Job Portal</div>
+          <p class="project-desc" data-key="proj3-desc">A full-featured job portal built with vanilla HTML, CSS, and JavaScript. Job seekers can search and filter listings by category, location, and salary range, while employers can post new vacancies through a simple submission form.</p>
+          <div class="project-links">
+            <a href="https://full-job-portal.vercel.app/" class="project-link" data-key="demo-link">Live Demo →</a>
+            <a href="https://github.com/abdurahmonabu321-wq/Full-Job" class="project-link">GitHub →</a>
           </div>
         </div>
       </div>
@@ -214,176 +171,169 @@
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="container">
-    <p class="section-label">What I Offer</p>
-    <h2 class="section-title">My Services</h2>
+    <p class="section-label" data-key="services-label">What I Offer</p>
+    <h2 class="section-title" data-key="services-title">My Services</h2>
     <div class="section-divider"></div>
     <div class="services-grid">
-
       <div class="service-card">
         <div class="service-icon">🚀</div>
-        <div class="service-title">Landing Page</div>
-        <p class="service-desc">Fast, modern and conversion-focused landing pages built with HTML, CSS and JavaScript. Clean design, fully responsive across all devices.</p>
+        <div class="service-title" data-key="serv1-title">Landing Page</div>
+        <p class="service-desc" data-key="serv1-desc">Fast, modern and conversion-focused landing pages built with HTML, CSS and JavaScript. Clean design, fully responsive across all devices.</p>
       </div>
-
       <div class="service-card">
         <div class="service-icon">🌐</div>
-        <div class="service-title">Web Development</div>
-        <p class="service-desc">Custom websites tailored to your needs. From simple business websites to multi-page web projects with smooth interactions and clean code.</p>
+        <div class="service-title" data-key="serv2-title">Web Development</div>
+        <p class="service-desc" data-key="serv2-desc">Custom websites tailored to your needs. From simple business websites to multi-page web projects with smooth interactions and clean code.</p>
       </div>
-
       <div class="service-card">
         <div class="service-icon">⚛️</div>
-        <div class="service-title">React / Next.js App</div>
-        <p class="service-desc">Scalable and performant web applications built with React.js and Next.js. Component-based architecture with TypeScript and Tailwind CSS.</p>
+        <div class="service-title" data-key="serv3-title">React / Next.js App</div>
+        <p class="service-desc" data-key="serv3-desc">Scalable and performant web applications built with React.js and Next.js. Component-based architecture with TypeScript and Tailwind CSS.</p>
       </div>
-
       <div class="service-card">
         <div class="service-icon">🎨</div>
-        <div class="service-title">UI Design (Figma)</div>
-        <p class="service-desc">Clean and modern UI designs crafted in Figma. From wireframes to fully polished prototypes — ready to hand off for development.</p>
+        <div class="service-title" data-key="serv4-title">UI Design (Figma)</div>
+        <p class="service-desc" data-key="serv4-desc">Clean and modern UI designs crafted in Figma. From wireframes to fully polished prototypes — ready to hand off for development.</p>
       </div>
-
     </div>
   </div>
-</section><section id="experience">
+</section>
+
+<section id="experience">
   <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
     <div>
-      <p class="section-label">Career</p>
-      <h2 class="section-title">Work Experience</h2>
+      <p class="section-label" data-key="exp-label">Career</p>
+      <h2 class="section-title" data-key="exp-title">Work Experience</h2>
       <div class="section-divider"></div>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-period">2024 — Present</div>
-          <div class="timeline-role">Freelance Frontend Developer</div>
-          <div class="timeline-company">Self-employed</div>
-          <p class="timeline-desc">Building personal projects using HTML, CSS, JavaScript, React.js and Next.js. Focused on improving frontend skills through real-world practice.</p>
+          <div class="timeline-period" data-key="exp1-period">2024 — Present</div>
+          <div class="timeline-role" data-key="exp1-role">Freelance Frontend Developer</div>
+          <div class="timeline-company" data-key="exp1-company">Self-employed</div>
+          <p class="timeline-desc" data-key="exp1-desc">Building personal projects using HTML, CSS, JavaScript, React.js and Next.js. Focused on improving frontend skills through real-world practice.</p>
         </div>
       </div>
     </div>
     <div>
-      <p class="section-label">Education</p>
-      <h2 class="section-title">Academic Background</h2>
+      <p class="section-label" data-key="edu-label">Education</p>
+      <h2 class="section-title" data-key="edu-title">Academic Background</h2>
       <div class="section-divider"></div>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-period">2024 — Present</div>
-          <div class="timeline-role">Frontend Development Student</div>
-          <div class="timeline-company">O'zbekiston</div>
-          <p class="timeline-desc">Actively studying modern frontend technologies including HTML, CSS, JavaScript, React.js, Next.js, Tailwind CSS, MUI, Ant Design and TypeScript.</p>
+          <div class="timeline-period" data-key="edu1-period">2024 — Present</div>
+          <div class="timeline-role" data-key="edu1-role">Frontend Development Student</div>
+          <div class="timeline-company" data-key="edu1-company">O'zbekiston</div>
+          <p class="timeline-desc" data-key="edu1-desc">Actively studying modern frontend technologies including HTML, CSS, JavaScript, React.js, Next.js, Tailwind CSS, MUI, Ant Design and TypeScript.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BLOG -->
 <section id="blog" style="background: var(--white);">
   <div class="container">
-    <p class="section-label">Latest Posts</p>
-    <h2 class="section-title">From My Blog</h2>
+    <p class="section-label" data-key="blog-label">Latest Posts</p>
+    <h2 class="section-title" data-key="blog-title">From My Blog</h2>
     <div class="section-divider"></div>
     <div class="blog-grid">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#f0f4ff;">⚡</div>
         <div class="blog-body">
           <div class="blog-meta">
-            <span class="blog-cat">Performance</span>
+            <span class="blog-cat" data-key="blog1-cat">Performance</span>
             <span class="blog-date">May 12, 2024</span>
           </div>
-          <div class="blog-title">10 React Performance Tips That Actually Work in 2024</div>
-          <p class="blog-excerpt">From memoization to code splitting — practical techniques I use daily to keep React apps fast and responsive.</p>
-          <a href="#" class="blog-read">Read article →</a>
+          <div class="blog-title" data-key="blog1-title">10 React Performance Tips That Actually Work in 2024</div>
+          <p class="blog-excerpt" data-key="blog1-desc">From memoization to code splitting — practical techniques I use daily to keep React apps fast and responsive.</p>
+          <a href="#" class="blog-read" data-key="blog-read">Read article →</a>
         </div>
       </div>
       <div class="blog-card">
         <div class="blog-thumb" style="background:#f0fff4;">🎨</div>
         <div class="blog-body">
           <div class="blog-meta">
-            <span class="blog-cat">Design</span>
+            <span class="blog-cat" data-key="blog2-cat">Design</span>
             <span class="blog-date">Apr 28, 2024</span>
           </div>
-          <div class="blog-title">Building a Design System from Scratch: Lessons Learned</div>
-          <p class="blog-excerpt">How we built a unified design system for 5 products in 3 months and what we'd do differently now.</p>
-          <a href="#" class="blog-read">Read article →</a>
+          <div class="blog-title" data-key="blog2-title">Building a Design System from Scratch: Lessons Learned</div>
+          <p class="blog-excerpt" data-key="blog2-desc">How we built a unified design system for 5 products in 3 months and what we'd do differently now.</p>
+          <a href="#" class="blog-read" data-key="blog-read">Read article →</a>
         </div>
       </div>
       <div class="blog-card">
         <div class="blog-thumb" style="background:#fff0f6;">🔒</div>
         <div class="blog-body">
           <div class="blog-meta">
-            <span class="blog-cat">TypeScript</span>
+            <span class="blog-cat" data-key="blog3-cat">TypeScript</span>
             <span class="blog-date">Apr 5, 2024</span>
           </div>
-          <div class="blog-title">TypeScript Patterns Every Frontend Developer Should Know</div>
-          <p class="blog-excerpt">Advanced generics, utility types, and type guards that make your TypeScript code safer and more expressive.</p>
-          <a href="#" class="blog-read">Read article →</a>
+          <div class="blog-title" data-key="blog3-title">TypeScript Patterns Every Frontend Developer Should Know</div>
+          <p class="blog-excerpt" data-key="blog3-desc">Advanced generics, utility types, and type guards that make your TypeScript code safer and more expressive.</p>
+          <a href="#" class="blog-read" data-key="blog-read">Read article →</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <p class="section-label">Common Questions</p>
-    <h2 class="section-title">FAQ</h2>
+    <p class="section-label" data-key="faq-label">Common Questions</p>
+    <h2 class="section-title" data-key="faq-title">FAQ</h2>
     <div class="section-divider"></div>
     <div class="faq-list">
       <div class="faq-item">
-        <div class="faq-q">How long does a typical project take? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">It depends on project scope. A simple landing page takes 1–2 weeks, while a full web application typically takes 4–12 weeks. I'll give you a detailed timeline estimate after our initial discovery call.</div>
+        <div class="faq-q" data-key="faq1-q">How long does a typical project take? <span class="faq-toggle">+</span></div>
+        <div class="faq-a" data-key="faq1-a">It depends on project scope. A simple landing page takes 1–2 weeks, while a full web application typically takes 4–12 weeks. I'll give you a detailed timeline estimate after our initial discovery call.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Do you work with international clients? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Yes! I work with clients globally. I'm comfortable communicating in English and Uzbekian, and I adapt to different time zones for meetings and updates.</div>
+        <div class="faq-q" data-key="faq2-q">Do you work with international clients? <span class="faq-toggle">+</span></div>
+        <div class="faq-a" data-key="faq2-a">Yes! I work with clients globally. I'm comfortable communicating in English and Uzbekian, and I adapt to different time zones for meetings and updates.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">What is your payment process? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">I typically work with a 50% deposit upfront and 50% upon project completion. For larger projects, we can set up milestone-based payments. I accept bank transfer, PayPal, and Stripe.</div>
+        <div class="faq-q" data-key="faq3-q">What is your payment process? <span class="faq-toggle">+</span></div>
+        <div class="faq-a" data-key="faq3-a">I typically work with a 50% deposit upfront and 50% upon project completion. For larger projects, we can set up milestone-based payments. I accept bank transfer, PayPal, and Stripe.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Do you provide post-launch support? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Yes — I offer 30 days of free bug-fix support after launch. Ongoing maintenance and feature development can be arranged via a monthly retainer plan.</div>
+        <div class="faq-q" data-key="faq4-q">Do you provide post-launch support? <span class="faq-toggle">+</span></div>
+        <div class="faq-a" data-key="faq4-a">Yes — I offer 30 days of free bug-fix support after launch. Ongoing maintenance and feature development can be arranged via a monthly retainer plan.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Can you work with an existing codebase? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Absolutely. I regularly take on legacy code optimization, refactoring, and feature additions. I'll do a brief code audit first to assess the current state and plan the work accordingly.</div>
+        <div class="faq-q" data-key="faq5-q">Can you work with an existing codebase? <span class="faq-toggle">+</span></div>
+        <div class="faq-a" data-key="faq5-a">Absolutely. I regularly take on legacy code optimization, refactoring, and feature additions. I'll do a brief code audit first to assess the current state and plan the work accordingly.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">What technologies do you specialize in? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">My core stack is React, Next.js, TypeScript, and Tailwind CSS on the frontend. For backends I work with Node.js and REST/GraphQL APIs. I'm also proficient with Figma for design handoff.</div>
+        <div class="faq-q" data-key="faq6-q">What technologies do you specialize in? <span class="faq-toggle">+</span></div>
+        <div class="faq-a" data-key="faq6-a">My core stack is React, Next.js, TypeScript, and Tailwind CSS on the frontend. For backends I work with Node.js and REST/GraphQL APIs. I'm also proficient with Figma for design handoff.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <p class="section-label">Get in Touch</p>
-    <h2 class="section-title">Contact Me</h2>
+    <p class="section-label" data-key="contact-label">Get in Touch</p>
+    <h2 class="section-title" data-key="contact-title">Contact Me</h2>
     <div class="section-divider"></div>
     <div class="contact-grid">
       <div>
-        <p class="contact-intro">Have a project in mind or want to discuss opportunities? I'm always open to new challenges and collaborations.</p>
+        <p class="contact-intro" data-key="contact-intro">Have a project in mind or want to discuss opportunities? I'm always open to new challenges and collaborations.</p>
         <div class="contact-items">
           <div class="contact-item">
             <div class="contact-icon">📧</div>
-            <div class="contact-info"><div class="label">Email</div><div class="value">zokhidvic55@gamil.com</div></div>
+            <div class="contact-info"><div class="label" data-key="c-email">Email</div><div class="value">zokhidvic55@gamil.com</div></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">📱</div>
-            <div class="contact-info"><div class="label">Phone</div><div class="value">+998 99 044 30 03</div></div>
+            <div class="contact-info"><div class="label" data-key="c-phone">Phone</div><div class="value">+998 99 044 30 03</div></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">📍</div>
-            <div class="contact-info"><div class="label">Location</div><div class="value">Fergana, Uzbekistan</div></div>
+            <div class="contact-info"><div class="label" data-key="c-loc">Location</div><div class="value" data-key="c-loc-val">Fergana, Uzbekistan</div></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">💼</div>
@@ -394,12 +344,12 @@
       <div>
         <div class="contact-form">
           <div class="form-row">
-            <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Doe"></div>
-            <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@example.com"></div>
+            <div class="form-group"><label data-key="f-name">Your Name</label><input type="text" placeholder="John Doe"></div>
+            <div class="form-group"><label data-key="f-email">Email Address</label><input type="email" placeholder="john@example.com"></div>
           </div>
-          <div class="form-group"><label>Subject</label><input type="text" placeholder="Project discussion..."></div>
-          <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
-          <button class="btn-primary" style="cursor:pointer; border:none; font-family:inherit; width:fit-content;">Send Message</button>
+          <div class="form-group"><label data-key="f-sub">Subject</label><input type="text" placeholder="Project discussion..."></div>
+          <div class="form-group"><label data-key="f-msg">Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+          <button class="btn-primary" style="cursor:pointer; border:none; font-family:inherit; width:fit-content;" data-key="f-btn">Send Message</button>
         </div>
       </div>
     </div>
@@ -407,18 +357,285 @@
 </section>
 
 <footer>
-  <p>Designed &amp; Built by <span>Abdurahmon Muhammadzokirov</span> &mdash; 2025. All rights reserved.</p>
+  <p data-key="footer-text">Designed &amp; Built by <span>Abdurahmon Muhammadzokirov</span> &mdash; 2026. All rights reserved.</p>
 </footer>
 
 <script>
-document.querySelectorAll('.faq-q').forEach(function(q) {
-  q.addEventListener('click', function() {
-    var item = this.closest('.faq-item');
-    var wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
-    if (!wasOpen) item.classList.add('open');
+  /* --- TARJIMALAR MATNLARI --- */
+  var translations = {
+    uz: {
+      "nav-about": "Men haqimda",
+      "nav-services": "Xizmatlar",
+      "nav-projects": "Loyihalar",
+      "nav-experience": "Tajriba",
+      "nav-reviews": "Fikrlar",
+      "nav-blog": "Blog",
+      "nav-faq": "FAQ",
+      "nav-contact": "Aloqa",
+      "hero-tag": "Hamkorlik uchun ochiq",
+      "hero-title": "Frontend<br>Dasturchi &amp;<br><span>UI Mutaxassisi</span>",
+      "hero-sub": "Men zamonaviy texnologiyalardan foydalangan holda toza, tez va qulay veb-saytlar yarataman. Toshkentda joylashganman, global miqyosda ishlayman.",
+      "hero-btn-view": "Loyihalarni ko'rish",
+      "hero-btn-hire": "Aloqaga chiqish",
+      "about-label": "Men haqimda",
+      "about-title": "Men kimman",
+      "about-p1": "Men zamonaviy veb-ilovalarni yaratishda 4 yildan ortiq tajribaga ega bo'lgan g'ayratli Frontend dasturchiman. Men chiroyli va funksional bo'lgan intuitiv foydalanuvchi interfeyslarini yaratishga ixtisoslashganman.",
+      "about-p2": "Mening yondashuvim toza kod arxitekturasini o'ylangan UX dizayni bilan birlashtiradi — menimcha, ajoyib dasturiy ta'minotdan foydalanish oson va qulay bo'lishi kerak.",
+      "about-p3": "Bo'sh vaqtimda men ochiq kodli (open-source) loyihalarga hissa qo'shaman va mahalliy texnologiya hamjamiyatida yosh dasturchilarga ustozlik qilaman.",
+      "stat-exp": "Yillik Tajriba",
+      "stat-projects": "Bajarilgan Loyihalar",
+      "stat-clients": "Mamnun Mijozlar",
+      "skills-label": "Ko'nikmalar",
+      "projects-label": "Mening ishlarim",
+      "projects-title": "Saralangan Loyihalar",
+      "proj1-title": "Kalkulyator",
+      "proj1-desc": "Sof JavaScript yordamida yaratilgan toza va moslashuvchan kalkulyator. Oddiy arifmetik amallarni, klaviatura kiritishini va zamonaviy UI bilan tezkor hisob-kitoblarni qo'llab-quvvatlaydi.",
+      "proj2-title": "Avto ijara veb-sayti",
+      "proj2-desc": "Next.js va Tailwind CSS bilan yaratilgan zamonaviy avtomobil ijarasi platformasi. Foydalanuvchilar mavjud transport vositalarini ko'rishlari, turi va narxi bo'yicha saralashlari hamda barcha qurilmalarda silliq interfeys orqali buyurtma berishlari mumkin.",
+      "proj3-title": "To'liq Vakansiyalar Portali",
+      "proj3-desc": "Sof HTML, CSS va JavaScript bilan yaratilgan to'liq xususiyatli ish qidirish portali. Ish qidiruvchilar vakansiyalarni toifalar, joylashuv va ish haqi oralig'i bo'yicha qidirishlari, ish beruvchilar esa oddiy ariza orqali yangi vakansiyalarni joylashtirishlari mumkin.",
+      "demo-link": "Jonli Demo →",
+      "services-label": "Men taklif qiladigan xizmatlar",
+      "services-title": "Mening xizmatlarim",
+      "serv1-title": "Landing Page (Bir sahifali sayt)",
+      "serv1-desc": "HTML, CSS va JavaScript yordamida yaratilgan tezkor, zamonaviy va savdoni oshirishga yo'naltirilgan bir sahifali saytlar. Toza dizayn va barcha qurilmalarga to'liq moslashuvchanlik.",
+      "serv2-title": "Veb-saytlar ishlab chiqish",
+      "serv2-desc": "Sizning ehtiyojlaringizga moslashtirilgan maxsus veb-saytlar. Oddiy biznes saytlardan tortib, silliq animatsiyalar va toza kodga ega ko'p sahifali veb-loyihalargacha.",
+      "serv3-title": "React / Next.js Ilovalar",
+      "serv3-desc": "React.js va Next.js yordamida yaratilgan kengaytiriladigan va yuqori unumdorlikka ega veb-ilovalar. TypeScript va Tailwind CSS bilan komponentlarga asoslangan arxitektura.",
+      "serv4-title": "UI Dizayn (Figma)",
+      "serv4-desc": "Figma dasturida yaratilgan toza va zamonaviy UI dizaynlar. Simli kadrlardan (wireframes) tortib to to'liq sayt prototiplarigacha — dasturlashga topshirish uchun tayyor holatda.",
+      "exp-label": "Karyera",
+      "exp-title": "Ish tajribasi",
+      "exp1-period": "2024 — Hozirgacha",
+      "exp1-role": "Frilanser Frontend Dasturchi",
+      "exp1-company": "Mustaqil bandlik",
+      "exp1-desc": "HTML, CSS, JavaScript, React.js va Next.js yordamida shaxsiy loyihalarni yaratish. Real loyihalar orqali frontend ko'nikmalarini oshirishga e'tibor qaratilgan.",
+      "edu-label": "Ta'lim",
+      "edu-title": "Akademik ma'lumot",
+      "edu1-period": "2024 — Hozirgacha",
+      "edu1-role": "Frontend dasturlash talabasi",
+      "edu1-company": "O'zbekiston",
+      "edu1-desc": "Zamonaviy frontend texnologiyalarini, jumladan HTML, CSS, JavaScript, React.js, Next.js, Tailwind CSS, MUI, Ant Design va TypeScript-ni faol o'rganmoqda.",
+      "blog-label": "So'nggi Maqolalar",
+      "blog-title": "Mening Blogimdan",
+      "blog1-cat": "Unumdorlik",
+      "blog1-title": "React-da Unumdorlikni Oshirish Uchun 10 ta Foydali Maslahat",
+      "blog1-desc": "Memoizatsiyadan tortib kodlarni qismlarga bo'lishgacha — React ilovalarini tezkor saqlash uchun har kuni ishlatadigan amaliy usullari.",
+      "blog-read": "Maqolani o'qish →",
+      "blog2-cat": "Dizayn",
+      "blog2-title": "Noldan Dizayn Tizimini Yaratish: O'rganilgan Saboqlar",
+      "blog2-desc": "3 oy ichida 5 ta mahsulot uchun yagona dizayn tizimini qanday qurdik va hozir nimani boshqacha qilgan bo'lardik.",
+      "blog3-cat": "TypeScript",
+      "blog3-title": "Har bir Frontend Dasturchi Bilishi Kerak Bo'lgan TypeScript Patternlari",
+      "blog3-desc": "TypeScript kodingizni xavfsizroq va tushunarliroq qiladigan ilg'or generiklar, utilit turlari va gardlar.",
+      "faq-label": "Ko'p Beriladigan Savollar",
+      "faq-title": "FAQ",
+      "faq1-q": "Odatda bitta loyiha qancha vaqt oladi? <span class=\"faq-toggle\">+</span>",
+      "faq1-a": "Bu loyihaning ko'lamiga bog'liq. Oddiy landing page 1-2 hafta davom etadi, to'liq veb-ilova esa odatda 4-12 hafta oladi.",
+      "faq2-q": "Xalqaro mijozlar bilan ishlaysizmi? <span class=\"faq-toggle\">+</span>",
+      "faq2-a": "Ha! Men global miqyosda ishlayman. Ingliz va o'zbek tillarida erkin muloqot qila olaman va uchrashuvlar uchun turli vaqt zonalariga moslashaman.",
+      "faq3-q": "To'lov jarayoni qanday? <span class=\"faq-toggle\">+</span>",
+      "faq3-a": "Odatda 50% oldindan to'lov va 50% loyiha yakunlanganda ishlayman. Yirik loyihalar uchun bosqichma-bosqich to'lovlarni kelishishimiz mumkin.",
+      "faq4-q": "Loyihani topshirgandan keyin ham qo'llab-quvvatlaysizmi? <span class=\"faq-toggle\">+</span>",
+      "faq4-a": "Ha — loyiha ishga tushgandan so'ng 30 kunlik bepul texnik yordam taklif qilaman.",
+      "faq5-q": "Mavjud kod bazasi (existing codebase) bilan ishlay olasizmi? <span class=\"faq-toggle\">+</span>",
+      "faq5-a": "Albatta. Men eski kodlarni optimallashtirish, refaktorizatsiya qilish va yangi funksiyalar qo'shish bilan muntazam shug'ullanaman.",
+      "faq6-q": "Qaysi texnologiyalarga ixtisoslashgansiz? <span class=\"faq-toggle\">+</span>",
+      "faq6-a": "Frontendda asosiy stekim: React, Next.js, TypeScript va Tailwind CSS. Backend uchun esa Node.js va REST/GraphQL API'lar bilan ishlayman.",
+      "contact-label": "Aloqaga Chiqish",
+      "contact-title": "Men Bilan Bog'laning",
+      "contact-intro": "Loyihangiz bormi yoki imkoniyatlarni muhokama qilmoqchimisiz? Men har doim yangi chaqiriqlar va hamkorlik uchun ochiqman.",
+      "c-email": "Elektron pochta",
+      "c-phone": "Telefon",
+      "c-loc": "Manzil",
+      "c-loc-val": "Farg'ona, O'zbekiston",
+      "f-name": "Ismingiz",
+      "f-email": "Pochta manzilingiz",
+      "f-sub": "Mavzu",
+      "f-msg": "Xabar",
+      "f-btn": "Xabarni yuborish",
+      "footer-text": "Dizayn va Kod muallifi: <span>Abdurahmon Muhammadzokirov</span> &mdash; 2026. Barcha huquqlar himoyalangan."
+    },
+    en: {
+      "nav-about": "About",
+      "nav-services": "Services",
+      "nav-projects": "Projects",
+      "nav-experience": "Experience",
+      "nav-reviews": "Reviews",
+      "nav-blog": "Blog",
+      "nav-faq": "FAQ",
+      "nav-contact": "Contact",
+      "hero-tag": "Available for hire",
+      "hero-title": "Frontend<br>Developer &amp;<br><span>UI Specialist</span>",
+      "hero-sub": "I build clean, fast, and accessible web experiences using modern technologies. Based in Tashkent, working globally.",
+      "hero-btn-view": "View Projects",
+      "hero-btn-hire": "Hire Me",
+      "about-label": "About me",
+      "about-title": "Who I Am",
+      "about-p1": "I'm a passionate Frontend Developer with 4+ years of experience creating modern web applications. I specialize in building intuitive user interfaces that are both beautiful and functional.",
+      "about-p2": "My approach combines clean code architecture with thoughtful UX design — I believe great software should feel effortless to use.",
+      "about-p3": "When I'm not coding, I contribute to open-source projects and mentor junior developers in the local tech community.",
+      "stat-exp": "Years Experience",
+      "stat-projects": "Projects Done",
+      "stat-clients": "Happy Clients",
+      "skills-label": "Skills",
+      "projects-label": "My Work",
+      "projects-title": "Featured Projects",
+      "proj1-title": "Calculator",
+      "proj1-desc": "A clean and responsive calculator built with vanilla JavaScript. Supports basic arithmetic operations, keyboard input, and instant calculations with a modern UI.",
+      "proj2-title": "Car Rental Website",
+      "proj2-desc": "A modern car rental platform built with Next.js and Tailwind CSS. Users can browse available vehicles, filter by type and price, and book their preferred car with a smooth, responsive experience across all devices.",
+      "proj3-title": "Full Job Portal",
+      "proj3-desc": "A full-featured job portal built with vanilla HTML, CSS, and JavaScript. Job seekers can search and filter listings by category, location, and salary range, while employers can post new vacancies through a simple submission form.",
+      "demo-link": "Live Demo →",
+      "services-label": "What I Offer",
+      "services-title": "My Services",
+      "serv1-title": "Landing Page",
+      "serv1-desc": "Fast, modern and conversion-focused landing pages built with HTML, CSS and JavaScript. Clean design, fully responsive across all devices.",
+      "serv2-title": "Web Development",
+      "serv2-desc": "Custom websites tailored to your needs. From simple business websites to multi-page web projects with smooth interactions and clean code.",
+      "serv3-title": "React / Next.js App",
+      "serv3-desc": "Scalable and performant web applications built with React.js and Next.js. Component-based architecture with TypeScript and Tailwind CSS.",
+      "serv4-title": "UI Design (Figma)",
+      "serv4-desc": "Clean and modern UI designs crafted in Figma. From wireframes to fully polished prototypes — ready to hand off for development.",
+      "exp-label": "Career",
+      "exp-title": "Work Experience",
+      "exp1-period": "2024 — Present",
+      "exp1-role": "Freelance Frontend Developer",
+      "exp1-company": "Self-employed",
+      "exp1-desc": "Building personal projects using HTML, CSS, JavaScript, React.js and Next.js. Focused on improving frontend skills through real-world practice.",
+      "edu-label": "Education",
+      "edu-title": "Academic Background",
+      "edu1-period": "2024 — Present",
+      "edu1-role": "Frontend Development Student",
+      "edu1-company": "Uzbekistan",
+      "edu1-desc": "Actively studying modern frontend technologies including HTML, CSS, JavaScript, React.js, Next.js, Tailwind CSS, MUI, Ant Design and TypeScript.",
+      "blog-label": "Latest Posts",
+      "blog-title": "From My Blog",
+      "blog1-cat": "Performance",
+      "blog1-title": "10 React Performance Tips That Actually Work in 2024",
+      "blog1-desc": "From memoization to code splitting — practical techniques I use daily to keep React apps fast and responsive.",
+      "blog-read": "Read article →",
+      "blog2-cat": "Design",
+      "blog2-title": "Building a Design System from Scratch: Lessons Learned",
+      "blog2-desc": "How we built a unified design system for 5 products in 3 months and what we'd do differently now.",
+      "blog3-cat": "TypeScript",
+      "blog3-title": "TypeScript Patterns Every Frontend Developer Should Know",
+      "blog3-desc": "Advanced generics, utility types, and type guards that make your TypeScript code safer and more expressive.",
+      "faq-label": "Common Questions",
+      "faq-title": "FAQ",
+      "faq1-q": "How long does a typical project take? <span class=\"faq-toggle\">+</span>",
+      "faq1-a": "It depends on project scope. A simple landing page takes 1–2 weeks, while a full web application typically takes 4–12 weeks. I'll give you a detailed timeline estimate after our initial discovery call.",
+      "faq2-q": "Do you work with international clients? <span class=\"faq-toggle\">+</span>",
+      "faq2-a": "Yes! I work with clients globally. I'm comfortable communicating in English and Uzbekian, and I adapt to different time zones for meetings and updates.",
+      "faq3-q": "What is your payment process? <span class=\"faq-toggle\">+</span>",
+      "faq3-a": "I typically work with a 50% deposit upfront and 50% upon project completion. For larger projects, we can set up milestone-based payments. I accept bank transfer, PayPal, and Stripe.",
+      "faq4-q": "Do you provide post-launch support? <span class=\"faq-toggle\">+</span>",
+      "faq4-a": "Yes — I offer 30 days of free bug-fix support after launch. Ongoing maintenance and feature development can be arranged via a monthly retainer plan.",
+      "faq5-q": "Can you work with an existing codebase? <span class=\"faq-toggle\">+</span>",
+      "faq5-a": "Absolutely. I regularly take on legacy code optimization, refactoring, and feature additions. I'll do a brief code audit first to assess the current state and plan the work accordingly.",
+      "faq6-q": "What technologies do you specialize in? <span class=\"faq-toggle\">+</span>",
+      "faq6-a": "My core stack is React, Next.js, TypeScript, and Tailwind CSS on the frontend. For backends I work with Node.js and REST/GraphQL APIs. I'm also proficient with Figma for design handoff.",
+      "contact-label": "Get in Touch",
+      "contact-title": "Contact Me",
+      "contact-intro": "Have a project in mind or want to discuss opportunities? I'm always open to new challenges and collaborations.",
+      "c-email": "Email",
+      "c-phone": "Phone",
+      "c-loc": "Location",
+      "c-loc-val": "Fergana, Uzbekistan",
+      "f-name": "Your Name",
+      "f-email": "Email Address",
+      "f-sub": "Subject",
+      "f-msg": "Message",
+      "f-btn": "Send Message",
+      "footer-text": "Designed &amp; Built by <span>Abdurahmon Muhammadzokirov</span> &mdash; 2026. All rights reserved."
+    }
+  };
+
+  /* --- TILNI ALMASHTIRISH FUNKSIYASI --- */
+  function switchLanguage(lang) {
+    localStorage.setItem('selectedLang', lang);
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.remove('active');
+      if(btn.getAttribute('onclick').includes(lang)) {
+        btn.classList.add('active');
+      }
+    });
+
+    document.querySelectorAll('[data-key]').forEach(function(el) {
+      var key = el.getAttribute('data-key');
+      if (translations[lang] && translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+    
+    document.documentElement.lang = lang;
+  }
+
+  /* --- LOADER & INTERSECTION OBSERVER & INITIAL LANG --- */
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var loader = document.getElementById('loader');
+      if(loader) loader.classList.add('hidden');
+    }, 1300);
+
+    var savedLang = localStorage.getItem('selectedLang') || 'uz';
+    switchLanguage(savedLang);
   });
-});
+
+  /* --- SCROLL REVEAL ANIMATSIYALARI --- */
+  var revealTargets = [
+    { sel: '.about-text',     cls: 'reveal-left' },
+    { sel: '.skills-grid',    cls: 'reveal-right' },
+    { sel: '.project-card',   cls: 'reveal' },
+    { sel: '.service-card',   cls: 'reveal' },
+    { sel: '.timeline-item',  cls: 'reveal-left' },
+    { sel: '.section-title',  cls: 'reveal' },
+    { sel: '.blog-card',      cls: 'reveal' },
+    { sel: '.contact-item',   cls: 'reveal-left' },
+    { sel: '.contact-form',   cls: 'reveal-right' }
+  ];
+
+  revealTargets.forEach(function(t) {
+    document.querySelectorAll(t.sel).forEach(function(el, i) {
+      el.classList.add(t.cls);
+      if (i < 5) el.classList.add('delay-' + (i + 1));
+    });
+  });
+
+  document.querySelectorAll('.skill-fill').forEach(function(el) {
+    var w = el.style.width;
+    el.style.setProperty('--target-width', w);
+  });
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        if (entry.target.classList.contains('skills-grid')) {
+          entry.target.querySelectorAll('.skill-fill').forEach(function(bar) {
+            setTimeout(function() { bar.classList.add('animated'); }, 200);
+          });
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  /* --- FAQ --- */
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var item = this.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
 </script>
 </body>
 </html>
